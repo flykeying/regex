@@ -1,0 +1,471 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="wos课后班正则表达式课程测试工具">
+    <meta name="keywords" content="wos,正则表达式">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>正则学习测试环境 | Wos'课后班</title>
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="stylesheet" href="src/css/amazeui.min.css">
+    <link rel="stylesheet" href="src/css/index.css">
+</head>
+<body>
+<!--replace model-->
+<div class="am-modal am-modal-prompt" tabindex="-1" id="modelReplace">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">请输入要替换的字符串</div>
+        <div class="am-modal-bd">
+            <input type="text" class="am-modal-prompt-input">
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+            <span class="am-modal-btn" data-am-modal-confirm>替换</span>
+        </div>
+    </div>
+</div>
+<!--模态窗口-->
+<div class="am-modal am-modal-no-btn" tabindex="-1" id="modelMain">
+    <div class="am-modal-dialog">
+        <div class="am-modal-bd" style="background-color: #fff;height: 500px; overflow-y: scroll">
+            <!--tabs-->
+            <div class="am-tabs" data-am-tabs>
+                <ul class="am-tabs-nav am-nav am-nav-tabs">
+                    <li class="am-active"><a href="#tab1">非打印字符</a></li>
+                    <li><a href="#tab2">特殊字符</a></li>
+                    <li><a href="#tab3">限定符</a></li>
+                    <li><a href="#tab4">定位符</a></li>
+                    <li><a href="#tab5">元字符</a></li>
+                    <div class="am-fr">(ESC键取消)</div>
+                </ul>
+
+                <div class="am-tabs-bd">
+                    <div class="am-tab-panel am-fade am-in am-active " id="tab1">
+                        <table class="am-table am-table-striped am-table-hover">
+                            <thead>
+                            <tr>
+                                <th class="tdleft">字符</th>
+                                <th>描述</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>\cx</td>
+                                <td>匹配由x指明的控制字符。例如， \cM 匹配一个 Control-M 或回车符。x 的值必须为 A-Z 或 a-z 之一。否则，将 c 视为一个原义的 'c' 字符。</td>
+                            </tr>
+                            <tr>
+                                <td>\f</td>
+                                <td>匹配一个换页符。等价于 \x0c 和 \cL。</td>
+                            </tr>
+                            <tr>
+                                <td>\n</td>
+                                <td>匹配一个换行符。等价于 \x0a 和 \cJ。</td>
+                            </tr>
+                            <tr>
+                                <td>\r</td>
+                                <td>匹配一个回车符。等价于 \x0d 和 \cM。</td>
+                            </tr>
+                            <tr>
+                                <td>\s</td>
+                                <td>匹配任何空白字符，包括空格、制表符、换页符等等。等价于 [ \f\n\r\t\v]。</td>
+                            </tr>
+                            <tr>
+                                <td>\S</td>
+                                <td>匹配任何非空白字符。等价于 [^ \f\n\r\t\v]。</td>
+                            </tr>
+                            <tr>
+                                <td>\t</td>
+                                <td>匹配一个制表符。等价于 \x09 和 \cI。 </td>
+                            </tr>
+                            <tr>
+                                <td>\v</td>
+                                <td>匹配一个垂直制表符。等价于 \x0b 和 \cK。</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="am-tab-panel am-fade" id="tab2">
+                        <table class="am-table am-table-striped am-table-hover">
+                            <thead>
+                            <tr>
+                                <th class="tdleft">字符</th>
+                                <th>描述</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>$</td>
+                                <td>匹配输入字符串的结尾位置。如果设置了 RegExp 对象的 Multiline 属性，则 $ 也匹配 '\n' 或 '\r'。要匹配 $ 字符本身，请使用 \$</td>
+                            </tr>
+                            <tr>
+                                <td>( )</td>
+                                <td>标记一个子表达式的开始和结束位置。子表达式可以获取供以后使用。要匹配这些字符，请使用 \( 和 \)。</td>
+                            </tr>
+                            <tr>
+                                <td>*</td>
+                                <td>匹配前面的子表达式零次或多次。要匹配 * 字符，请使用 \*。</td>
+                            </tr>
+                            <tr>
+                                <td>+</td>
+                                <td>匹配前面的子表达式一次或多次。要匹配 + 字符，请使用 \+。</td>
+                            </tr>
+                            <tr>
+                                <td>.</td>
+                                <td>匹配除换行符 \n之外的任何单字符。要匹配 .，请使用 \。</td>
+                            </tr>
+                            <tr>
+                                <td>[</td>
+                                <td>标记一个中括号表达式的开始。要匹配 [，请使用 \[。</td>
+                            </tr>
+                            <tr>
+                                <td>?</td>
+                                <td>匹配前面的子表达式零次或一次，或指明一个非贪婪限定符。要匹配 ? 字符，请使用 \?。</td>
+                            </tr>
+                            <tr>
+                                <td>\</td>
+                                <td>将下一个字符标记为或特殊字符、或原义字符、或向后引用、或八进制转义符。例如， 'n' 匹配字符 'n'。'\n' 匹配换行符。序列 '\\' 匹配 "\"，而 '\(' 则匹配 "("。</td>
+                            </tr>
+                            <tr>
+                                <td>^</td>
+                                <td>匹配输入字符串的开始位置，除非在方括号表达式中使用，此时它表示不接受该字符集合。要匹配 ^ 字符本身，请使用 \^。</td>
+                            </tr>
+                            <tr>
+                                <td>{</td>
+                                <td>标记限定符表达式的开始。要匹配 {，请使用 \{。</td>
+                            </tr>
+                            <tr>
+                                <td>|</td>
+                                <td>指明两项之间的一个选择。要匹配 |，请使用 \|。</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="am-tab-panel am-fade" id="tab3">
+                        <table class="am-table am-table-striped am-table-hover">
+                            <thead>
+                            <tr>
+                                <th class="tdleft">字符</th>
+                                <th>描述</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>*</td>
+                                <td>匹配前面的子表达式零次或多次。例如，zo* 能匹配 "z" 以及 "zoo"。* 等价于{0,}。</td>
+                            </tr>
+                            <tr>
+                                <td>+</td>
+                                <td>匹配前面的子表达式一次或多次。例如，'zo+' 能匹配 "zo" 以及 "zoo"，但不能匹配 "z"。+ 等价于 {1,}。</td>
+                            </tr>
+                            <tr>
+                                <td>?</td>
+                                <td>匹配前面的子表达式零次或一次。例如，"do(es)?" 可以匹配 "do" 或 "does" 中的"do" 。? 等价于 {0,1}。</td>
+                            </tr>
+                            <tr>
+                                <td>{n}</td>
+                                <td>n 是一个非负整数。匹配确定的 n 次。例如，'o{2}' 不能匹配 "Bob" 中的 'o'，但是能匹配 "food" 中的两个 o。</td>
+                            </tr>
+                            <tr>
+                                <td>{n,}</td>
+                                <td>n 是一个非负整数。至少匹配n 次。例如，'o{2,}' 不能匹配 "Bob" 中的 'o'，但能匹配 "foooood" 中的所有 o。'o{1,}' 等价于 'o+'。'o{0,}' 则等价于 'o*'。</td>
+                            </tr>
+                            <tr>
+                                <td>{n,m}</td>
+                                <td>m 和 n 均为非负整数，其中n <= m。最少匹配 n 次且最多匹配 m 次。例如，"o{1,3}" 将匹配 "fooooood" 中的前三个 o。'o{0,1}' 等价于 'o?'。请注意在逗号和两个数之间不能有空格。</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="am-tab-panel am-fade" id="tab4">
+                        <table class="am-table am-table-striped am-table-hover">
+                            <thead>
+                            <tr>
+                                <th class="tdleft">字符</th>
+                                <th>描述</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>^</td>
+                                <td>匹配输入字符串开始的位置。如果设置了 RegExp 对象的 Multiline 属性，^ 还会与 \n 或 \r 之后的位置匹配。</td>
+                            </tr>
+                            <tr>
+                                <td>$</td>
+                                <td>匹配输入字符串结尾的位置。如果设置了 RegExp 对象的 Multiline 属性，$ 还会与 \n 或 \r 之前的位置匹配。</td>
+                            </tr>
+                            <tr>
+                                <td>\b</td>
+                                <td>匹配一个字边界，即字与空格间的位置。</td>
+                            </tr>
+                            <tr>
+                                <td>\B</td>
+                                <td>非字边界匹配。</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="am-tab-panel am-fade" id="tab5">
+                        <table class="am-table am-table-striped am-table-hover">
+                            <thead>
+                            <tr>
+                                <th class="tdleft">字符</th>
+                                <th>描述</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>\</td>
+                                <td>	将下一个字符标记为一个特殊字符、或一个原义字符、或一个 向后引用、或一个八进制转义符。例如，'n' 匹配字符 "n"。'\n' 匹配一个换行符。序列 '\\' 匹配 "\" 而 "\(" 则匹配 "("。<td>
+                            </tr>
+                            <tr>
+                                <td>^</td>
+                                <td>匹配输入字符串的开始位置。如果设置了 RegExp 对象的 Multiline 属性，^ 也匹配 '\n' 或 '\r' 之后的位置。<td>
+                            </tr>
+                            <tr>
+                                <td>$</td>
+                                <td>匹配输入字符串的结束位置。如果设置了RegExp 对象的 Multiline 属性，$ 也匹配 '\n' 或 '\r' 之前的位置。<td>
+                            </tr>
+                            <tr>
+                                <td>*</td>
+                                <td>匹配前面的子表达式零次或多次。例如，zo* 能匹配 "z" 以及 "zoo"。* 等价于{0,}。<td>
+                            </tr>
+                            <tr>
+                                <td>+</td>
+                                <td>匹配前面的子表达式一次或多次。例如，'zo+' 能匹配 "zo" 以及 "zoo"，但不能匹配 "z"。+ 等价于 {1,}。<td>
+                            </tr>
+                            <tr>
+                                <td>?</td>
+                                <td>匹配前面的子表达式零次或一次。例如，"do(es)?" 可以匹配 "do" 或 "does" 中的"do" 。? 等价于 {0,1}。<td>
+                            </tr>
+                            <tr>
+                                <td>{n}</td>
+                                <td>n 是一个非负整数。匹配确定的 n 次。例如，'o{2}' 不能匹配 "Bob" 中的 'o'，但是能匹配 "food" 中的两个 o。<td>
+                            </tr>
+                            <tr>
+                                <td>{n,}</td>
+                                <td>n 是一个非负整数。至少匹配n 次。例如，'o{2,}' 不能匹配 "Bob" 中的 'o'，但能匹配 "foooood" 中的所有 o。'o{1,}' 等价于 'o+'。'o{0,}' 则等价于 'o*'。<td>
+                            </tr>
+                            <tr>
+                                <td>{n,m}</td>
+                                <td>m 和 n 均为非负整数，其中n <= m。最少匹配 n 次且最多匹配 m 次。例如，"o{1,3}" 将匹配 "fooooood" 中的前三个 o。'o{0,1}' 等价于 'o?'。请注意在逗号和两个数之间不能有空格。<td>
+                            </tr>
+                            <tr>
+                                <td>?</td>
+                                <td>当该字符紧跟在任何一个其他限制符 (*, +, ?, {n}, {n,}, {n,m}) 后面时，匹配模式是非贪婪的。非贪婪模式尽可能少的匹配所搜索的字符串，而默认的贪婪模式则尽可能多的匹配所搜索的字符串。例如，对于字符串 "oooo"，'o+?' 将匹配单个 "o"，而 'o+' 将匹配所有 'o'。<td>
+                            </tr>
+                            <tr>
+                                <td>.</td>
+                                <td>匹配除 "\n" 之外的任何单个字符。要匹配包括 '\n' 在内的任何字符，请使用象 '[.\n]' 的模式。<td>
+                            </tr>
+                            <tr>
+                                <td>(pattern)</td>
+                                <td>匹配 pattern 并获取这一匹配。所获取的匹配可以从产生的 Matches 集合得到，在VBScript 中使用 SubMatches 集合，在JScript 中则使用 $0…$9 属性。要匹配圆括号字符，请使用 '\(' 或 '\)'。<td>
+                            </tr>
+                            <tr>
+                                <td>(?:pattern)</td>
+                                <td>匹配 pattern 但不获取匹配结果，也就是说这是一个非获取匹配，不进行存储供以后使用。这在使用 "或" 字符 (|) 来组合一个模式的各个部分是很有用。例如， 'industr(?:y|ies) 就是一个比 'industry|industries' 更简略的表达式。<td>
+                            </tr>
+                            <tr>
+                                <td>(?=pattern)</td>
+                                <td>正向预查，在任何匹配 pattern 的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。例如，'Windows (?=95|98|NT|2000)' 能匹配 "Windows 2000" 中的 "Windows" ，但不能匹配 "Windows 3.1" 中的 "Windows"。预查不消耗字符，也就是说，在一个匹配发生后，在最后一次匹配之后立即开始下一次匹配的搜索，而不是从包含预查的字符之后开始。<td>
+                            </tr>
+                            <tr>
+                                <td>(?!pattern)</td>
+                                <td>负向预查，在任何不匹配 pattern 的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。例如'Windows (?!95|98|NT|2000)' 能匹配 "Windows 3.1" 中的 "Windows"，但不能匹配 "Windows 2000" 中的 "Windows"。预查不消耗字符，也就是说，在一个匹配发生后，在最后一次匹配之后立即开始下一次匹配的搜索，而不是从包含预查的字符之后开始。<td>
+                            </tr>
+                            <tr>
+                                <td>x|y</td>
+                                <td>匹配 x 或 y。例如，'z|food' 能匹配 "z" 或 "food"。'(z|f)ood' 则匹配 "zood" 或 "food"。<td>
+                            </tr>
+                            <tr>
+                                <td>[xyz]</td>
+                                <td>字符集合。匹配所包含的任意一个字符。例如， '[abc]' 可以匹配 "plain" 中的 'a'。<td>
+                            </tr>
+                            <tr>
+                                <td>[^xyz]</td>
+                                <td>负值字符集合。匹配未包含的任意字符。例如， '[^abc]' 可以匹配 "plain" 中的'p'、'l'、'i'、'n'。<td>
+                            </tr>
+                            <tr>
+                                <td>[a-z]</td>
+                                <td>字符范围。匹配指定范围内的任意字符。例如，'[a-z]' 可以匹配 'a' 到 'z' 范围内的任意小写字母字符。<td>
+                            </tr>
+                            <tr>
+                                <td>[^a-z]</td>
+                                <td>负值字符范围。匹配任何不在指定范围内的任意字符。例如，'[^a-z]' 可以匹配任何不在 'a' 到 'z' 范围内的任意字符。<td>
+                            </tr>
+                            <tr>
+                                <td>\b</td>
+                                <td>匹配一个单词边界，也就是指单词和空格间的位置。例如， 'er\b' 可以匹配"never" 中的 'er'，但不能匹配 "verb" 中的 'er'。<td>
+                            </tr>
+                            <tr>
+                                <td>\B</td>
+                                <td>匹配非单词边界。'er\B' 能匹配 "verb" 中的 'er'，但不能匹配 "never" 中的 'er'。<td>
+                            </tr>
+                            <tr>
+                                <td>\cx</td>
+                                <td>匹配由 x 指明的控制字符。例如， \cM 匹配一个 Control-M 或回车符。x 的值必须为 A-Z 或 a-z 之一。否则，将 c 视为一个原义的 'c' 字符。<td>
+                            </tr>
+                            <tr>
+                                <td>\d</td>
+                                <td>匹配一个数字字符。等价于 [0-9]<td>
+                            </tr>
+                            <tr>
+                                <td>\D</td>
+                                <td>匹配一个非数字字符。等价于 [^0-9]。<td>
+                            </tr>
+                            <tr>
+                                <td>\f</td>
+                                <td>匹配一个换页符。等价于 \x0c 和 \cL。<td>
+                            </tr>
+                            <tr>
+                                <td>\n</td>
+                                <td>匹配一个换行符。等价于 \x0a 和 \cJ。<td>
+                            </tr>
+                            <tr>
+                                <td>\r</td>
+                                <td>匹配一个回车符。等价于 \x0d 和 \cM。<td>
+                            </tr>
+                            <tr>
+                                <td>\s</td>
+                                <td>匹配任何空白字符，包括空格、制表符、换页符等等。等价于 [ \f\n\r\t\v]。<td>
+                            </tr>
+                            <tr>
+                                <td>\S</td>
+                                <td>匹配任何非空白字符。等价于 [^ \f\n\r\t\v]。<td>
+                            </tr>
+                            <tr>
+                                <td>\t</td>
+                                <td>匹配一个制表符。等价于 \x09 和 \cI。<td>
+                            </tr>
+                            <tr>
+                                <td>\v</td>
+                                <td>匹配一个垂直制表符。等价于 \x0b 和 \cK。<td>
+                            </tr>
+                            <tr>
+                                <td>\w</td>
+                                <td>匹配包括下划线的任何单词字符。等价于'[A-Za-z0-9_]'。<td>
+                            </tr>
+                            <tr>
+                                <td>\W</td>
+                                <td>匹配任何非单词字符。等价于 '[^A-Za-z0-9_]'。<td>
+                            </tr>
+                            <tr>
+                                <td>\xn</td>
+                                <td>匹配 n，其中 n 为十六进制转义值。十六进制转义值必须为确定的两个数字长。例如，'\x41' 匹配 "A"。'\x041' 则等价于 '\x04' & "1"。正则表达式中可以使用 ASCII 编码。<td>
+                            </tr>
+                            <tr>
+                                <td>\num</td>
+                                <td>匹配 num，其中 num 是一个正整数。对所获取的匹配的引用。例如，'(.)\1' 匹配两个连续的相同字符。<td>
+                            </tr>
+                            <tr>
+                                <td>\n</td>
+                                <td>标识一个八进制转义值或一个向后引用。如果 \n 之前至少 n 个获取的子表达式，则 n 为向后引用。否则，如果 n 为八进制数字 (0-7)，则 n 为一个八进制转义值。<td>
+                            </tr>
+                            <tr>
+                                <td>\nm</td>
+                                <td>标识一个八进制转义值或一个向后引用。如果 \nm 之前至少有 nm 个获得子表达式，则 nm 为向后引用。如果 \nm 之前至少有 n 个获取，则 n 为一个后跟文字 m 的向后引用。如果前面的条件都不满足，若 n 和 m 均为八进制数字 (0-7)，则 \nm 将匹配八进制转义值 nm。<td>
+                            </tr>
+                            <tr>
+                                <td>\nml</td>
+                                <td>如果 n 为八进制数字 (0-3)，且 m 和 l 均为八进制数字 (0-7)，则匹配八进制转义值 nml。<td>
+                            </tr>
+                            <tr>
+                                <td>\un</td>
+                                <td>匹配 n，其中 n 是一个用四个十六进制数字表示的 Unicode 字符。例如， \u00A9 匹配版权符号 (?)。<td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 侧边栏内容 -->
+<div id="doc-oc-demo1" class="am-offcanvas">
+    <div class="am-offcanvas-bar">
+        <div class="am-offcanvas-content">
+            <h2>课程源码</h2>
+            <ul>
+                <li onclick="pipei('[\\u4e00-\\u9fa5]')">匹配中文字符</li>
+                <li onclick="pipei('[1-9][0-9]{4,}')">匹配QQ号</li>
+                <li onclick=pipei("[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?")>匹配Email地址</li>
+                <li onclick="pipei('[a-zA-z]+://[^\\s]*')">匹配网址URL</li>
+                <li onclick="pipei('[1-9][0-9]{4,}')">匹配QQ号</li>
+                <li onclick="pipei('[1-9][0-9]{4,}')">匹配QQ号</li>
+                <li onclick="pipei('[1-9][0-9]{4,}')">匹配QQ号</li>
+                <li onclick="pipei('[1-9][0-9]{4,}')">匹配QQ号</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="main leftMain">
+    <header>
+        <h2>正则表达式学习环境</h2>
+        <span>v1.0</span>
+    </header>
+    <textarea id="text">
+欢迎来到Wos课后班的正则表达式学习环境
+
+## 功能简介
+你可以通过设计你的正则表达式，来搜索左侧文本框中的已经预先设计好，或者你重新设计的文字。学习环境提供了查询和替换二种模式。当然还有我们已经设计好的一些的正则表达式供你学习之用。
+
+You can use the design of your regular expression to search for the left side of the text box has been pre designed, or you re design of the text. The learning environment provides two modes of query and substitution. Of course, there are some regular expressions that we have designed for you to learn.
+
+## 技术交流
+QQ：2773817091
+QQ群：96612098
+电子邮件：2773817091@qq.com
+
+## 正则举例
+sales1.xls
+orders.xls
+sales2.xls
+sales3.xls
+apac1.xls
+europe2.xls
+na1.xls
+na2.xls
+sa1.xls
+ca1.xls
+欢迎访问我的博客：http://dagaiwan.com
+</textarea>
+</div>
+<div class="main rightMain">
+    <div id="menu"><a href="#doc-oc-demo1" data-am-offcanvas><i class="am-icon-bars am-icon-lg"></i></a></div>
+    <h2>正则表达式</h2>
+    <textarea id="code">[1-9][0-9]{4,}</textarea>
+
+    <div class="am-g" style="background-color: #296491">
+        <div class="am-u-sm-8">
+            <label class="am-checkbox">
+                <input type="checkbox" id="g-sy" data-am-ucheck checked> 全局
+            </label>
+            <label class="am-checkbox">
+                <input type="checkbox" id="i-sy" data-am-ucheck checked> 大小写不敏感
+            </label>
+        </div>
+        <div class="am-u-sm-4 am-text-right">
+
+
+            <button id="insertChar" class="am-btn-danger" data-am-modal="{target: '#modelMain', closeViaDimmer: 0, width: 800, height: 500}">插入</button>
+            <button id="repalceBtn">替换</button>
+            <button id="findBtn">查询</button>
+        </div>
+    </div>
+    <p id="regResult">匹配结果</p>
+    <textarea id="output"></textarea>
+</div>
+
+
+</body>
+<script src="src/js/jquery.min.js"></script>
+<script src="src/js/amazeui.min.js"></script>
+<script src="src/js/index.js"></script>
+</html>

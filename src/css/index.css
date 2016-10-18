@@ -1,0 +1,90 @@
+body{
+    overflow: hidden;
+}
+h2{
+    font-size: 150%;
+}
+textarea{
+    width: 100%;
+    color: #000;
+    letter-spacing: 1px;
+    padding: 10px;
+    background-color: #f7f7f7;
+}
+textarea:focus{
+    background-color: #fff;
+}
+.main{
+    width: 50%;
+    float: left;
+    padding: 40px;
+    height: 1200px;
+}
+.leftMain{
+    /*padding-right: 20px;*/
+}
+.leftMain header{
+    height: 35px;
+    padding-bottoms: 20px;
+}
+.leftMain header h2{
+    color: #000;
+    float: left;
+}
+.leftMain header span{
+    color: #dbdbdb;
+    font-size: 50%;
+    float: left;
+    text-indent: 10px;
+}
+.leftMain textarea{
+    width: 100%;
+    border: solid 1px #6aa3d7;
+}
+#text{
+    height: 1200px;
+}
+.rightMain{
+    border-left: 5px solid #296491;
+    background-color: #6aa3d7;
+    color: #fff;
+    padding-top: 50px;
+}
+.rightMain h2{
+    color: #fff;
+}
+button{
+    padding: 10px 15px;
+    color: #6aa3d7;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+button:hover{
+    background-color: #d9efff;
+    color: black;
+}
+#menu{
+    position: fixed;
+    right:40px;
+    top:20px;
+    cursor: pointer;
+}
+.am-offcanvas li{
+    cursor: pointer;
+}
+.am-offcanvas li:hover{
+    color: #ffea2a;
+}
+.am-table{
+    margin: 0px;
+}
+.am-table td{
+    text-align: left;
+}
+.tdleft{
+    width: 80px;
+}
+tbody tr td:first-child{
+    cursor: pointer;
+}
