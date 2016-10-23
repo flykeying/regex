@@ -396,7 +396,7 @@
                 <li onclick="pipei('[1-9][0-9]{4,}')">匹配QQ号</li>
                 <li onclick=pipei("[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?")>匹配Email地址</li>
                 <li onclick="pipei('[a-zA-z]+://[^\\s]*')">匹配网址URL</li>
-                <li onclick="pipei('[1-9][0-9]{4,}')">匹配QQ号</li>
+                <li onclick="pipei('#[0-9a-fA-F]{6}')">匹配颜色值</li>
                 <li onclick="pipei('[1-9][0-9]{4,}')">匹配QQ号</li>
                 <li onclick="pipei('[1-9][0-9]{4,}')">匹配QQ号</li>
                 <li onclick="pipei('[1-9][0-9]{4,}')">匹配QQ号</li>
@@ -411,13 +411,25 @@
         <span>v1.0</span>
     </header>
     <textarea id="text">
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="wos课后班正则表达式课程测试工具">
+    <meta name="keywords" content="wos,正则表达式">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>正则学习测试环境 | Wos'课后班</title>
 欢迎来到Wos课后班的正则表达式学习环境
 
 ## 功能简介
 你可以通过设计你的正则表达式，来搜索左侧文本框中的已经预先设计好，或者你重新设计的文字。学习环境提供了查询和替换二种模式。当然还有我们已经设计好的一些的正则表达式供你学习之用。
 
-You can use the design of your regular expression to search for the left side of the text box has been pre designed, or you re design of the text. The learning environment provides two modes of query and substitution. Of course, there are some regular expressions that we have designed for you to learn.
+the cat scattered his food all over the room
 
+You <B>can</B> use <b>the</b> design of your regular expression to search for the left side of the text box has been pre designed, or you re design of the text. The learning environment provides two modes of query and substitution. Of course, there are some regular expressions that we have designed for you to learn.
+#ff6600
+#ffffff
 ## 技术交流
 QQ：2773817091
 QQ群：96612098
@@ -435,6 +447,34 @@ na2.xls
 sa1.xls
 ca1.xls
 欢迎访问我的博客：http://dagaiwan.com
+$('#findBtn').click(function(){
+    var txt = $('#text').val();
+    var regex = $('#code').val();//正则表达式
+    var patt1=new RegExp(regex,sy());
+    $('#output').val('');
+    var i = 0;
+    do{
+        result=patt1.exec(txt);//检索写法
+        if (result!=null){
+            $('#output').val($('#output').val() + '[第 '+result.index+' 个字符] '+ result +  ' \r');
+            i++;
+        }
+    }
+    while (result!=null);
+    $('#regResult').html('匹配到【'+ i + '】个结果。\r')
+});
+$25.2
+$352.2
+$566
+$9.2
+$7501.6
+$165.5
+$52.3
+$75.6
+$1201.6
+$88.9
+$65.5
+$102.7
 </textarea>
 </div>
 <div class="main rightMain">
