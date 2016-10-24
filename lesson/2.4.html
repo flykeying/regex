@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="">
+		<p>
+			只允许输入数字
+			<input type="text" onkeyup="this.value = this.value.replace(/\D/g,'')">
+		</p>
+		<p>
+			只允许输入英文
+			<input type="text" onkeyup="this.value = this.value.replace(/[^a-zA-Z]/g,'')">
+		</p>
+		<p>
+			只允许输入汉字
+			<input type="text" onkeyup="this.value = this.value.replace(/[^\u4e00-\u9fa5]/g,'')">
+		</p>
+	</form>
+</body>
+</html>

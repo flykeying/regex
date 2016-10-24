@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<script>
+	var txt = "hello 1234567890 HELLO byebye";
+	var regex =  new RegExp("hello","gi");
+	//g 执行全局匹配
+	//i 大小写不敏感
+	//m 执行多行匹配
+	//var output = regex.exec(txt)
+
+	while ((output = regex.exec(txt)) != null){
+		document.write('第' + regex.lastIndex +  '位,找到' + output + '<br/>')
+	}
+	
+</script>
+</body>
+</html>
